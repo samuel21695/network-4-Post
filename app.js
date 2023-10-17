@@ -11,5 +11,14 @@ http.createServer((req, res) => {
     // 해당 body 변수는 'POST' 요청이 들어올때마다 초기화 된다.
     // 따라서 if() 안에서만 사용할 수 있다.
     // if() 기준 body 변수는 지역변수이다.
+
+    req.on('data', (chunk) => {
+      body += chunk.toString(); // 데이터를 문자열로 변환
+      // body = body + chunk.toString();
+      // toString()을 사용하지 않으면,
+      // 버퍼(buffer) 데이터를 문자열로 변환하지 ㅏㅇㄶ고 그대로 둔다.
+    });
+
+    
   }
 })
