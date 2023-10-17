@@ -19,6 +19,19 @@ http.createServer((req, res) => {
       // 버퍼(buffer) 데이터를 문자열로 변환하지 ㅏㅇㄶ고 그대로 둔다.
     });
 
-    
+    req.on('end', () => {
+      const parsedBody = querystring.parse(body); // 요청 본문을 파싱
+      const { username, password } = parsedBody;
+
+      console.log(`form 입력으로부터 받은 데이터 확인 -> `, parsedBody);
+      console.log(`form 입력으로부터 받은 데이터 확인 -> `, username);
+      console.log(`form 입력으로부터 받은 데이터 확인 -> `, password);
+
+      res.writeHead(200, {'Contect-Type': 'text/plain'});
+      res.end("login success!");
+    });
   }
-})
+
+}).listen(3000, () => {
+  console.log(`cli 창에서 컨트롤 누른 후 옆에 포트 누르면 편리하게 확인 -> http://localhost:3000/`)
+});
