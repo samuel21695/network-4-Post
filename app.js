@@ -1,7 +1,18 @@
 const http = require('http');
 const querystring = require('querystring');
+const fs = require('fs');
 
 http.createServer((req, res) => {
+
+  if (req.method === 'GET' && req.url === '/') {
+    fs.readFile( 'node-form.html', 'utf-8', (err, data) => {
+      if (err) {
+        serverErrorLog();
+      }
+      res.writeHead(200, {'Content-Type': 'text/html'});
+      res.end(data);
+    })
+  }
 
   if (req.method === 'POST' && req.url === '/login') {
     // HTML 폼 태그 작성 부분에서 method = "POST"로 지정하는 것으로 변경
